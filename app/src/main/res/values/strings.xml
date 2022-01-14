@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GM Commit Reader</string>
+    <string name="refresh">Refresh</string>
 </resources>
