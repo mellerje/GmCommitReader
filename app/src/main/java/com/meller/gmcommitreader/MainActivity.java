@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String [] commitItemsArray = { "Test1", "Test2" };
     String [] commitSubItemsArray = { "SubTest1", "SubTest2" };
     List<CommitItem> commitItems;
+    CommitItemsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         commitItems.add(new CommitItem("Hash", "Author", "Message"));
         commitItems.add(new CommitItem("Hash2", "Author2", "Message2"));
 
-        CommitItemsAdapter adapter = new CommitItemsAdapter(this,
+        adapter = new CommitItemsAdapter(this,
                 R.layout.activity_listview, commitItems);
 
         commitListView = (ListView) findViewById(R.id.commitListView);
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+
+        commitItems.add(new CommitItem("Hash3", "Author3", "Message3"));
+        adapter.notifyDataSetChanged();
         refreshRepository();
     }
 
