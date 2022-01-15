@@ -23,12 +23,13 @@ public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
+
         CommitItem commitItem = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.commit_item, parent, false);
         }
+
         // Lookup view for data population
         TextView tvHash = (TextView) convertView.findViewById(R.id.tvHash);
         TextView tvAuthor = (TextView) convertView.findViewById(R.id.tvAuthor);

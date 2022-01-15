@@ -10,10 +10,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    final String repoString = "https://api.github.com/repos/mellerje/GmCommitReader/commits";
+
     Button refreshButton;
     ListView commitListView;
     String [] commitItemsArray = { "Test1", "Test2" };
@@ -29,6 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         refreshButton = (Button) findViewById(R.id.refreshButton);
         refreshButton.setOnClickListener(this);
 
+        AddCommitAdater();
+
+        refreshRepository();
+    }
+
+    private void AddCommitAdater()
+    {
         commitItems = new ArrayList<CommitItem>();
 
         commitItems.add(new CommitItem("Hash", "Author", "Message"));
@@ -40,19 +54,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         commitListView = (ListView) findViewById(R.id.commitListView);
 
         commitListView.setAdapter(adapter);
-        refreshRepository();
     }
-
-    private boolean connectToRepository()
-    {
-
-        return true;
-    }
-
 
     @Override
     public void onClick(View view) {
-
+        try {
+            GitHubService gitHubService = new GitHubService();
+            gitHubService.execute(new URL(repoString));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         commitItems.add(new CommitItem("Hash3", "Author3", "Message3"));
         adapter.notifyDataSetChanged();
         refreshRepository();
