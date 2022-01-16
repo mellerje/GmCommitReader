@@ -19,18 +19,23 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
-    final String repoString = "https://api.github.com/repos/mellerje/GmCommitReader/commits";
+    final String repoString = "https://api.github.com/repos/%s/%s/commits";
 
     Button refreshButton;
     ListView commitListView;
 
     List<CommitItem> commitItems;
     CommitItemsAdapter adapter;
+    private String username;
+    private String repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        username = getIntent().getStringExtra("username");
+        repository = getIntent().getStringExtra("repository");
 
         refreshButton = (Button) findViewById(R.id.refreshButton);
         refreshButton.setOnClickListener(this);
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void refreshRepository() {
         try {
+            String repoUrlString = String.format(repoString, username, repository);
             GitHubService gitHubService = new GitHubService();
             gitHubService.delegate = this;
             gitHubService.execute(new URL(repoString));

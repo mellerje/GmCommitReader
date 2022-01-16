@@ -39,7 +39,7 @@ public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
         List<CommitItem> commitItems = new ArrayList<CommitItem>();
         JSONArray commits = new JSONArray(repoCommitsJson);
 
-        for (int i = 0; i < commits.length(); i++)
+        for (int i = commits.length() - 1; i >= 0; i--)
         {
             String hash = commits.getJSONObject(i).getString("sha");
             JSONObject commit = commits.getJSONObject(i).getJSONObject("commit");
