@@ -23,8 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button refreshButton;
     ListView commitListView;
-    String [] commitItemsArray = { "Test1", "Test2" };
-    String [] commitSubItemsArray = { "SubTest1", "SubTest2" };
+
     List<CommitItem> commitItems;
     CommitItemsAdapter adapter;
 
@@ -45,9 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         commitItems = new ArrayList<CommitItem>();
 
-        commitItems.add(new CommitItem("Hash", "Author", "Message"));
-        commitItems.add(new CommitItem("Hash2", "Author2", "Message2"));
-
         adapter = new CommitItemsAdapter(this,
                 R.layout.activity_listview, commitItems);
 
@@ -58,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        refreshRepository();
+    }
+
+    private void refreshRepository() {
         try {
             GitHubService gitHubService = new GitHubService();
             gitHubService.delegate = this;
@@ -65,11 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void refreshRepository() {
-
-        showToast("Repository Refreshed");
     }
 
     private void showToast(String toastMessage) {
@@ -88,6 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         adapter.notifyDataSetChanged();
 
-        refreshRepository();
+        showToast("Repository Refreshed");
     }
 }

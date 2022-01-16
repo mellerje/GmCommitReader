@@ -9,10 +9,15 @@
     <ListView
         android:id="@+id/commitListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
-
-
+        android:layout_height="0dp"
+        android:clickable="false"
+        android:dividerHeight="5dp"
+        android:footerDividersEnabled="true"
+        android:headerDividersEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/refreshButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ListView>
     <Button
         android:id="@+id/refreshButton"
         android:layout_width="wrap_content"

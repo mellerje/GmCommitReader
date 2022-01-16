@@ -4,21 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-<TextView
-    android:id="@+id/label"
-    android:layout_marginStart="1dp"
-    android:layout_marginTop="1dp"
-    android:layout_marginEnd="1dp"
-    android:layout_marginBottom="1dp"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" />
-<TextView
-    android:id="@+id/subLabel"
-    android:layout_marginStart="1dp"
-    android:layout_marginTop="1dp"
-    android:layout_marginEnd="1dp"
-    android:layout_marginBottom="1dp"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" />
 
 </TableLayout>
