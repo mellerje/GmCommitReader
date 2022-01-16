@@ -1,5 +1,6 @@
 package com.meller.gmcommitreader;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -27,8 +28,19 @@ public class MainRepoSelection extends AppCompatActivity implements View.OnClick
         Intent intent = new Intent(this, MainActivity.class);
 
         Editable username = ((EditText)findViewById(R.id.inputUsername)).getText();
-        intent.putExtra("username", username.toString());
         Editable repository = ((EditText)findViewById(R.id.inputRepository)).getText();;
+
+        if(username.toString().isEmpty() || repository.toString().isEmpty())
+        {
+            AlertDialog.Builder errorDialog = new AlertDialog.Builder(this);
+            errorDialog.setMessage("Username or repostiory missing.");
+            errorDialog.setTitle("Missing Information");
+            errorDialog.setPositiveButton("OK", null);
+            errorDialog.create().show();
+            return;
+        }
+
+        intent.putExtra("username", username.toString());
         intent.putExtra("repository", repository.toString());
         startActivity(intent);
     }

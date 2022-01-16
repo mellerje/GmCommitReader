@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
-    final String repoString = "https://api.github.com/repos/mellerje/GmCommitReader/commits";
+    //final String repoString = "https://api.github.com/repos/mellerje/GmCommitReader/commits";
 
     public AsyncResponse delegate = null;
 
-    private List<CommitItem> ReadCommits() throws Exception
+    private List<CommitItem> ReadCommits(URL url) throws Exception
     {
-        URL url = new URL(repoString);
+        //URL url = new URL(repoString);
         Scanner scan = new Scanner(url.openStream());
 
         String repoCommitsJson = "";
@@ -55,7 +55,7 @@ public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
     @Override
     protected List<CommitItem> doInBackground(URL... urls) {
         try {
-            return ReadCommits();
+            return ReadCommits(urls[0]);
         } catch (Exception e) {
             e.printStackTrace();
         }

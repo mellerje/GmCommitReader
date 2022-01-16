@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String repoUrlString = String.format(repoString, username, repository);
             GitHubService gitHubService = new GitHubService();
             gitHubService.delegate = this;
-            gitHubService.execute(new URL(repoString));
+            gitHubService.execute(new URL(repoUrlString));
         } catch (Exception e) {
             e.printStackTrace();
         }
