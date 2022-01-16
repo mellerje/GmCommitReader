@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">GM Commit Reader</string>
     <string name="refresh">Refresh</string>
+    <string name="hash">Hash:</string>
+    <string name="author">Author:</string>
+    <string name="message">Message:</string>
 </resources>
