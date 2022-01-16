@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
     final String repoString = "https://api.github.com/repos/mellerje/GmCommitReader/commits";
 
     Button refreshButton;
@@ -60,13 +60,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         try {
             GitHubService gitHubService = new GitHubService();
+            gitHubService.delegate = this;
             gitHubService.execute(new URL(repoString));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        commitItems.add(new CommitItem("Hash3", "Author3", "Message3"));
-        adapter.notifyDataSetChanged();
-        refreshRepository();
     }
 
     private void refreshRepository() {
@@ -81,5 +79,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    @Override
+    public void processFinish(List<CommitItem> updatedCommitItems) {
+        commitItems.clear();
+        commitItems.addAll(updatedCommitItems);
+
+        adapter.notifyDataSetChanged();
+
+        refreshRepository();
     }
 }
