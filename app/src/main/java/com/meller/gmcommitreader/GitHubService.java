@@ -1,13 +1,11 @@
 package com.meller.gmcommitreader;
 
 import android.os.AsyncTask;
-import android.util.JsonReader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,30 +18,30 @@ public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
     {
         if(url == null)
         {
-            return new ArrayList<CommitItem>();
+            return new ArrayList<>();
         }
 
         try {
             Scanner scan = new Scanner(url.openStream());
 
-            String repoCommitsJson = "";
+            StringBuilder repoCommitsJson = new StringBuilder();
 
             while (scan.hasNext()) {
-                repoCommitsJson += scan.nextLine();
+                repoCommitsJson.append(scan.nextLine());
             }
 
             scan.close();
 
-            return ParseJsonToCommitItems(repoCommitsJson);
+            return ParseJsonToCommitItems(repoCommitsJson.toString());
         }
         catch (Exception e)
         {
-            return new ArrayList<CommitItem>();
+            return new ArrayList<>();
         }
     }
 
     protected List<CommitItem> ParseJsonToCommitItems(String repoCommitsJson) throws JSONException {
-        List<CommitItem> commitItems = new ArrayList<CommitItem>();
+        List<CommitItem> commitItems = new ArrayList<>();
 
         if(repoCommitsJson.isEmpty())
         {
@@ -51,11 +49,6 @@ public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
         }
 
         JSONArray commits = new JSONArray(repoCommitsJson);
-
-        if(commits == null)
-        {
-            return commitItems;
-        }
 
         for (int i = commits.length() - 1; i >= 0; i--)
         {

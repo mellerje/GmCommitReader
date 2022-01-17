@@ -1,6 +1,5 @@
 package com.meller.gmcommitreader;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,15 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import java.util.List;
 
 public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
-
-    public CommitItemsAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull CommitItem[] objects) {
-        super(context, resource, textViewResourceId, objects);
-    }
 
     public CommitItemsAdapter(MainActivity context, int activity_listview, List<CommitItem> commitItems) {
         super(context, activity_listview, commitItems);
@@ -55,9 +48,9 @@ public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
         }
 
         // Lookup view for data population
-        TextView tvHash = (TextView) convertView.findViewById(R.id.tvHash);
-        TextView tvAuthor = (TextView) convertView.findViewById(R.id.tvAuthor);
-        TextView tvMessage = (TextView) convertView.findViewById(R.id.tvMessage);
+        TextView tvHash = convertView.findViewById(R.id.tvHash);
+        TextView tvAuthor = convertView.findViewById(R.id.tvAuthor);
+        TextView tvMessage = convertView.findViewById(R.id.tvMessage);
 
         // Populate the data into the template view using the data object
         tvHash.setText(commitItem.commitHash);

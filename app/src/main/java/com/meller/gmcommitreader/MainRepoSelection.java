@@ -12,14 +12,12 @@ import android.widget.EditText;
 
 public class MainRepoSelection extends AppCompatActivity implements View.OnClickListener {
 
-    private Button getCommitsButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_repo_selection);
 
-        getCommitsButton = (Button) findViewById(R.id.getCommitsButton);
+        Button getCommitsButton = findViewById(R.id.getCommitsButton);
         getCommitsButton.setOnClickListener(this);
     }
 
@@ -28,7 +26,7 @@ public class MainRepoSelection extends AppCompatActivity implements View.OnClick
         Intent intent = new Intent(this, MainActivity.class);
 
         Editable username = ((EditText)findViewById(R.id.inputUsername)).getText();
-        Editable repository = ((EditText)findViewById(R.id.inputRepository)).getText();;
+        Editable repository = ((EditText)findViewById(R.id.inputRepository)).getText();
 
         if(username.toString().isEmpty() || repository.toString().isEmpty())
         {

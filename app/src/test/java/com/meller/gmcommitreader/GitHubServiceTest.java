@@ -41,47 +41,48 @@ public class GitHubServiceTest {
         assertEquals(items.size(), 0);
     }
 
-    @Test (expected = Exception.class)
-    public void gitHubServices_ParseJsonToCommitItems_zeroItems_nullString() throws JSONException {
-        List<CommitItem> items = new GitHubService().ParseJsonToCommitItems(null);
-    }
-
     @Test
     public void gitHubServices_ParseJsonToCommitItems_zeroItems_emptyString()
     {
         List<CommitItem> items = null;
+
         try {
             items = new GitHubService().ParseJsonToCommitItems("");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        assert items != null;
         assertEquals(items.size(), 0);
     }
 
 
     @Test(expected = Exception.class)
     public void gitHubServices_ParseJsonToCommitItems_zeroItems_improperString() throws JSONException, IOException {
-        List<CommitItem> items = null;
-
         String improperJsonString = getStringFromFile("GitHubServicesData/improperJsonString.json");
 
-        items = new GitHubService().ParseJsonToCommitItems(improperJsonString);
+        new GitHubService().ParseJsonToCommitItems(improperJsonString);
     }
 
     @NonNull
     private String getStringFromFile(String filePath) throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
+
+        if(classLoader == null)
+        {
+            return "";
+        }
+
         InputStream inputStream = classLoader.getResourceAsStream(filePath);
         InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
         BufferedReader reader = new BufferedReader(streamReader);
 
-        String improperJsonString = "";
+        StringBuilder improperJsonString = new StringBuilder();
 
         for (String line; (line = reader.readLine()) != null;) {
-            improperJsonString += line.trim();
+            improperJsonString.append(line.trim());
         }
-        return improperJsonString;
+        return improperJsonString.toString();
     }
 
     @Test
