@@ -33,7 +33,7 @@ public class MainRepoSelection extends AppCompatActivity implements View.OnClick
         if(username.toString().isEmpty() || repository.toString().isEmpty())
         {
             AlertDialog.Builder errorDialog = new AlertDialog.Builder(this);
-            errorDialog.setMessage("Username or repostiory missing.");
+            errorDialog.setMessage("Username or repository missing.");
             errorDialog.setTitle("Missing Information");
             errorDialog.setPositiveButton("OK", null);
             errorDialog.create().show();

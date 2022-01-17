@@ -14,30 +14,48 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
-    //final String repoString = "https://api.github.com/repos/mellerje/GmCommitReader/commits";
+   public AsyncResponse delegate = null;
 
-    public AsyncResponse delegate = null;
-
-    private List<CommitItem> ReadCommits(URL url) throws Exception
+    protected List<CommitItem> ReadCommits(URL url)
     {
-        //URL url = new URL(repoString);
-        Scanner scan = new Scanner(url.openStream());
-
-        String repoCommitsJson = "";
-
-        while (scan.hasNext())
+        if(url == null)
         {
-            repoCommitsJson += scan.nextLine();
+            return new ArrayList<CommitItem>();
         }
 
-        scan.close();
+        try {
+            Scanner scan = new Scanner(url.openStream());
 
-        return ParseJsonToCommitItems(repoCommitsJson);
+            String repoCommitsJson = "";
+
+            while (scan.hasNext()) {
+                repoCommitsJson += scan.nextLine();
+            }
+
+            scan.close();
+
+            return ParseJsonToCommitItems(repoCommitsJson);
+        }
+        catch (Exception e)
+        {
+            return new ArrayList<CommitItem>();
+        }
     }
 
-    private List<CommitItem> ParseJsonToCommitItems(String repoCommitsJson) throws JSONException {
+    protected List<CommitItem> ParseJsonToCommitItems(String repoCommitsJson) throws JSONException {
         List<CommitItem> commitItems = new ArrayList<CommitItem>();
+
+        if(repoCommitsJson.isEmpty())
+        {
+            return commitItems;
+        }
+
         JSONArray commits = new JSONArray(repoCommitsJson);
+
+        if(commits == null)
+        {
+            return commitItems;
+        }
 
         for (int i = commits.length() - 1; i >= 0; i--)
         {
