@@ -33,11 +33,13 @@ public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
         }
 
         // Lookup view for data population
+        TextView tvCommitNumber = convertView.findViewById(R.id.tvCommitNumber);
         TextView tvHash = convertView.findViewById(R.id.tvHash);
         TextView tvAuthor = convertView.findViewById(R.id.tvAuthor);
         TextView tvMessage = convertView.findViewById(R.id.tvMessage);
 
         // Populate the data into the template view using the data object
+        tvCommitNumber.setText(Integer.toString(commitItem.commitNumber + 1));
         tvHash.setText(commitItem.commitHash);
         tvAuthor.setText(commitItem.author);
         tvMessage.setText(commitItem.commitMessage);

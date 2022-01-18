@@ -7,4 +7,5 @@
     <string name="repository">Repository:</string>
     <string name="username">Username:</string>
     <string name="get_commits">Get Commits</string>
+    <string name="commit_number">Commit Number:</string>
 </resources>

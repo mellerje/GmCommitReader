@@ -18,10 +18,11 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_column="0"
                 android:layout_height="wrap_content"
-                android:text="@string/username"
-                android:layout_margin="10dp"/>
+                android:layout_column="0"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="15dp"
+                android:text="@string/username" />
 
             <EditText
                 android:id="@+id/inputUsername"
@@ -40,7 +41,8 @@
                 android:layout_column="0"
                 android:layout_height="wrap_content"
                 android:text="@string/repository"
-                android:layout_margin="10dp"/>
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="10dp"/>
 
             <EditText
                 android:id="@+id/inputRepository"
