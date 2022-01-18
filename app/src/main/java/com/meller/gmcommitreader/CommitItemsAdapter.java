@@ -16,21 +16,6 @@ public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
         super(context, activity_listview, commitItems);
     }
 
-    public boolean CheckForNightMode() {
-        int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-        switch (nightModeFlags) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                return true;
-
-            case Configuration.UI_MODE_NIGHT_NO:
-            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                return false;
-        }
-
-        return false;
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -40,8 +25,11 @@ public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.commit_item, parent, false);
         }
 
-        if (position % 2 == 1) {
-            convertView.setBackgroundColor(!CheckForNightMode() ? Color.LTGRAY : Color.DKGRAY);
+        if (commitItem.commitNumber % 2 == 1) {
+            convertView.setBackgroundColor(checkForNightMode() ? Color.DKGRAY : Color.LTGRAY);
+        }
+        else {
+            convertView.setBackgroundColor(checkForNightMode() ? Color.BLACK : Color.WHITE);
         }
 
         // Lookup view for data population
@@ -57,4 +45,21 @@ public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
         // Return the completed view to render on screen
         return convertView;
     }
+
+    private boolean checkForNightMode() {
+        int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                return true;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                return false;
+        }
+
+        return false;
+    }
+
+
 }

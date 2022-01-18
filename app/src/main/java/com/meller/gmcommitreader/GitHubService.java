@@ -64,7 +64,7 @@ public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
             String commitAuthor = commit.getJSONObject("author").getString("name");
             String commitMessage = commit.getString("message");
 
-            commitItems.add(new CommitItem(hash, commitAuthor, commitMessage));
+            commitItems.add(new CommitItem(commitItems.size(), hash, commitAuthor, commitMessage));
         }
 
         return commitItems;
