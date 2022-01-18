@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".CommitListActivity"
             android:exported="false">
         </activity>
     </application>

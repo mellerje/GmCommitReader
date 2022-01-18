@@ -13,21 +13,22 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
+public class CommitListActivity extends AppCompatActivity implements View.OnClickListener, IAsyncResponse {
     final String repoString = "https://api.github.com/repos/%s/%s/commits";
 
-    Button refreshButton;
-    ListView commitListView;
+    private Button refreshButton;
+    private ListView commitListView;
 
-    List<CommitItem> commitItems;
-    CommitItemsAdapter adapter;
+    private List<CommitItem> commitItems;
+    private CommitItemsAdapter adapter;
+
     private String username;
     private String repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_commit_list);
 
         username = getIntent().getStringExtra("username");
         repository = getIntent().getStringExtra("repository");
@@ -35,13 +36,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         refreshButton = findViewById(R.id.refreshButton);
         refreshButton.setOnClickListener(this);
 
-        AddCommitAdapter();
-
+        addCommitItemsAdapter();
         refreshRepository();
     }
 
-    private void AddCommitAdapter()
-    {
+    @Override
+    public void onClick(View view) {
+        refreshRepository();
+    }
+
+    @Override
+    public void processFinish(List<CommitItem> updatedCommitItems) {
+        commitItems.clear();
+        commitItems.addAll(updatedCommitItems);
+
+        adapter.notifyDataSetChanged();
+
+        showToast("Repository Refreshed");
+    }
+
+    private void addCommitItemsAdapter() {
         commitItems = new ArrayList<>();
 
         adapter = new CommitItemsAdapter(this, R.layout.activity_listview, commitItems);
@@ -49,11 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         commitListView = findViewById(R.id.commitListView);
 
         commitListView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onClick(View view) {
-        refreshRepository();
     }
 
     private void refreshRepository() {
@@ -73,15 +82,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Toast toast = Toast.makeText(context, toastMessage, duration);
         toast.show();
-    }
-
-    @Override
-    public void processFinish(List<CommitItem> updatedCommitItems) {
-        commitItems.clear();
-        commitItems.addAll(updatedCommitItems);
-
-        adapter.notifyDataSetChanged();
-
-        showToast("Repository Refreshed");
     }
 }

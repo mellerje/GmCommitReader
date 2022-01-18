@@ -12,15 +12,12 @@ import java.util.List;
 
 public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
 
-    public CommitItemsAdapter(MainActivity context, int activity_listview, List<CommitItem> commitItems) {
+    public CommitItemsAdapter(CommitListActivity context, int activity_listview, List<CommitItem> commitItems) {
         super(context, activity_listview, commitItems);
     }
 
-    public boolean CheckForNightMode()
-    {
-        int nightModeFlags =
-                getContext().getResources().getConfiguration().uiMode &
-                        Configuration.UI_MODE_NIGHT_MASK;
+    public boolean CheckForNightMode() {
+        int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:

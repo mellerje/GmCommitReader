@@ -2,6 +2,6 @@ package com.meller.gmcommitreader;
 
 import java.util.List;
 
-public interface AsyncResponse {
+public interface IAsyncResponse {
     void processFinish(List<CommitItem> commitItems);
 }

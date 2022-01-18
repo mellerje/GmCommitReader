@@ -12,12 +12,21 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
-   public AsyncResponse delegate = null;
+    public IAsyncResponse delegate = null;
 
-    protected List<CommitItem> ReadCommits(URL url)
-    {
-        if(url == null)
-        {
+    @Override
+    protected List<CommitItem> doInBackground(URL... urls) {
+        try {
+            return ReadCommits(urls[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    protected List<CommitItem> ReadCommits(URL url) {
+        if(url == null) {
             return new ArrayList<>();
         }
 
@@ -34,8 +43,7 @@ public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
 
             return ParseJsonToCommitItems(repoCommitsJson.toString());
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             return new ArrayList<>();
         }
     }
@@ -43,8 +51,7 @@ public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
     protected List<CommitItem> ParseJsonToCommitItems(String repoCommitsJson) throws JSONException {
         List<CommitItem> commitItems = new ArrayList<>();
 
-        if(repoCommitsJson.isEmpty())
-        {
+        if(repoCommitsJson.isEmpty()) {
             return commitItems;
         }
 
@@ -64,19 +71,7 @@ public class GitHubService extends AsyncTask<URL, Integer, List<CommitItem>> {
     }
 
     @Override
-    protected List<CommitItem> doInBackground(URL... urls) {
-        try {
-            return ReadCommits(urls[0]);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(List<CommitItem> result)
-    {
+    protected void onPostExecute(List<CommitItem> result) {
         delegate.processFinish(result);
     }
 }
