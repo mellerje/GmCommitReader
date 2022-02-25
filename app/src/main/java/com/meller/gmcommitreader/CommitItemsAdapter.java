@@ -36,6 +36,7 @@ public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
         TextView tvCommitNumber = convertView.findViewById(R.id.tvCommitNumber);
         TextView tvHash = convertView.findViewById(R.id.tvHash);
         TextView tvAuthor = convertView.findViewById(R.id.tvAuthor);
+        TextView tvCommitDate = convertView.findViewById(R.id.tvCommitDate);
         TextView tvMessage = convertView.findViewById(R.id.tvMessage);
 
         // Populate the data into the template view using the data object
@@ -43,6 +44,7 @@ public class CommitItemsAdapter extends ArrayAdapter<CommitItem> {
         tvHash.setText(commitItem.commitHash);
         tvAuthor.setText(commitItem.author);
         tvMessage.setText(commitItem.commitMessage);
+        tvCommitDate.setText(commitItem.commitDate);
 
         // Return the completed view to render on screen
         return convertView;

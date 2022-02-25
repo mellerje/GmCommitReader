@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class CommitListActivity extends AppCompatActivity implements View.OnClickListener, IAsyncResponse {
+public class CommitListActivity extends AppCompatActivity implements IAsyncResponse {
     final String repoString = "https://api.github.com/repos/%s/%s/commits";
 
     private Button refreshButton;
+    private Button sortButton;
     private ListView commitListView;
 
     private List<CommitItem> commitItems;
@@ -24,6 +26,8 @@ public class CommitListActivity extends AppCompatActivity implements View.OnClic
 
     private String username;
     private String repository;
+
+    private Boolean ascending = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +38,26 @@ public class CommitListActivity extends AppCompatActivity implements View.OnClic
         repository = getIntent().getStringExtra("repository");
 
         refreshButton = findViewById(R.id.refreshButton);
-        refreshButton.setOnClickListener(this);
+        sortButton = findViewById(R.id.sort);
 
-        addCommitItemsAdapter();
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+                                             public void onClick(View view) {
+                                                 refreshRepository();
+                                             }
+                                         }
+        );
+
+        sortButton.setOnClickListener(new View.OnClickListener() {
+                                             public void onClick(View view) {
+                                                 sortRepositories();
+                                             }
+                                         }
+        );
+
+        refreshCommitItemsAdapter();
         refreshRepository();
     }
 
-    @Override
-    public void onClick(View view) {
-        refreshRepository();
-    }
 
     @Override
     public void processFinish(List<CommitItem> updatedCommitItems) {
@@ -55,7 +69,7 @@ public class CommitListActivity extends AppCompatActivity implements View.OnClic
         showToast("Repository Refreshed");
     }
 
-    private void addCommitItemsAdapter() {
+    private void refreshCommitItemsAdapter() {
         commitItems = new ArrayList<>();
 
         adapter = new CommitItemsAdapter(this, R.layout.activity_listview, commitItems);
@@ -74,6 +88,26 @@ public class CommitListActivity extends AppCompatActivity implements View.OnClic
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void sortRepositories()
+    {
+        commitItems.sort(
+                new Comparator<CommitItem>() {
+                    @Override
+                    public int compare(CommitItem commitItem, CommitItem t1) {
+                        if(ascending) {
+                            return commitItem.commitDate.compareTo((t1.commitDate));
+                        }
+
+                        return t1.commitDate.compareTo((commitItem.commitDate));
+                    }
+                }
+        );
+
+        ascending = !ascending;
+
+        adapter.notifyDataSetChanged();
     }
 
     private void showToast(String toastMessage) {

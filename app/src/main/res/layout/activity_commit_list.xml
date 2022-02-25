@@ -17,17 +17,28 @@
         app:layout_constraintBottom_toTopOf="@+id/refreshButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ListView>
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <Button
         android:id="@+id/refreshButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginEnd="159dp"
+        android:layout_marginStart="76dp"
         android:layout_marginBottom="16dp"
         android:text="@string/refresh"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toTopOf="@id/refreshButton"
+        app:layout_constraintStart_toEndOf="@id/refreshButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

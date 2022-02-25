@@ -101,9 +101,12 @@ public class GitHubServiceTest {
         List<CommitItem> items = new GitHubService().ParseJsonToCommitItems(jsonString);
 
         assertEquals(items.get(0).author, "testUser");
+        assertEquals(items.get(0).commitDate, "2022-01-16T04:57:49Z");
         assertEquals(items.get(0).commitHash, "0987654321");
         assertEquals(items.get(0).commitMessage, "Test Message 2.");
+
         assertEquals(items.get(1).author, "testUser");
+        assertEquals(items.get(1).commitDate, "2022-01-16T06:46:30Z");
         assertEquals(items.get(1).commitHash, "1234567890");
         assertEquals(items.get(1).commitMessage, "Test Message 1.");
     }
